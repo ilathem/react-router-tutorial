@@ -1,11 +1,11 @@
-import { Outlet, Link, useLoaderData, Form } from 'react-router-dom';
+import { Outlet, Link, useLoaderData, Form, redirect } from 'react-router-dom';
 import { getContacts, createContact } from '../contacts';
 
 // eslint-disable-next-line react-refresh/only-export-components
 // for catching the POST request and handling it inside of the client
 export async function action() {
   const contact = await createContact();
-  return { contact };
+  return redirect(`/contacts/${contact.id}/edit`);
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -26,7 +26,7 @@ export default function Root() {
           </Form>
         </div>
         <nav>
-          {contacts.length ?  (
+          {contacts.length ? (
             <ul>
               {contacts.map((contact) => (
                 <li key={contact.id}>
@@ -37,7 +37,7 @@ export default function Root() {
                       </>
                     ) : (
                       <i>No Name</i>
-                    )}{" "}
+                    )}{' '}
                     {contact.favorite && <span>🌕</span>}
                   </Link>
                 </li>
