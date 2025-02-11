@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader({ params }) {
-  const contact = await getContact(params.contatId);
+  const contact = await getContact(params.contactId);
   return { contact };
 }
 
 export default function Contact() {
-  const contact = useLoaderData();
+  const contact = useLoaderData().contact;
 
   return (
     <div id='contact'>
