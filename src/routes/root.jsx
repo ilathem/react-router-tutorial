@@ -4,11 +4,11 @@ import {
   useLoaderData,
   Form,
   redirect,
+  useNavigation,
 } from 'react-router-dom';
 import { getContacts, createContact } from '../contacts';
 
 // eslint-disable-next-line react-refresh/only-export-components
-// for catching the POST request and handling it inside of the client
 export async function action() {
   const contact = await createContact();
   return redirect(`/contacts/${contact.id}/edit`);
@@ -22,6 +22,7 @@ export async function loader() {
 
 export default function Root() {
   const { contacts } = useLoaderData();
+  const navigation = useNavigation();
   return (
     <>
       <div id='sidebar'>
@@ -61,7 +62,10 @@ export default function Root() {
           )}
         </nav>
       </div>
-      <div id='detail'>
+      <div
+        id='detail'
+        className={navigation.state === 'loading' ? 'loading' : ''}
+      >
         <Outlet />
       </div>
     </>
