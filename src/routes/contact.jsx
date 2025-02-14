@@ -12,6 +12,12 @@ export async function action({ request, params }) {
 // eslint-disable-next-line react-refresh/only-export-components
 export async function loader({ params }) {
   const contact = await getContact(params.contactId);
+  if (!contact) {
+    throw new Response('', {
+      status: 404,
+      statusText: 'User not found',
+    });
+  }
   return { contact };
 }
 
